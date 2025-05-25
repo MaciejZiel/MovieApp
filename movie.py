@@ -1,5 +1,5 @@
 class Movie:
-    def __init__(self, title, director, year, genre, status, rating, description):
+    def __init__(self, title, director, year, genre, status, rating, description, comments=None):
         self.title = title
         self.director = director
         self.year = year
@@ -7,6 +7,7 @@ class Movie:
         self.status = status
         self.rating = rating
         self.description = description
+        self.comments = comments if comments is not None else []
 
     def to_dict(self):
         return self.__dict__

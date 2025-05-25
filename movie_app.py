@@ -1,5 +1,6 @@
-# Zmodyfikowany movie_app.py z dynamicznymi polami 'Reżyser' i 'Rok'
 import tkinter as tk
+import matplotlib.pyplot as plt
+from collections import Counter, defaultdict
 from tkinter import ttk, messagebox
 from movie import Movie
 from movie_manager import MovieManager
@@ -7,178 +8,278 @@ from movie_manager import MovieManager
 class MovieApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("Watchlist – Kolekcja Filmów")
+        self.root.title("Movie Manager")
+
         self.manager = MovieManager()
+        self.filtered_movies = []
+
         self.selected_index = None
         self.sort_column = None
         self.sort_reverse = False
-        self.genre_options = ["Akcja", "Dramat", "Kryminalny", "Thriller", "Sci-Fi", "Muzyczny"]
+
+        self.vars = [tk.StringVar() for _ in range(7)]
+        (self.title_var, self.director_var, self.year_var,
+         self.genre_var, self.status_var, self.rating_var, self.desc_var) = self.vars
+
+        self.search_var = tk.StringVar()
+        self.filter_status = tk.StringVar()
+        self.filter_genre = tk.StringVar()
+        self.filter_director = tk.StringVar()
+        self.filter_year = tk.StringVar()
 
         self.setup_ui()
-        self.refresh_movie_list()
+        self.reset_filters()
 
     def setup_ui(self):
-        frame = tk.Frame(self.root)
-        frame.pack(padx=10, pady=10)
+        frm = ttk.Frame(self.root)
+        frm.pack(padx=10, pady=10, fill="both", expand=True)
+
         labels = ["Tytuł", "Reżyser", "Rok", "Gatunek", "Status", "Ocena", "Opis"]
         for i, text in enumerate(labels):
-            tk.Label(frame, text=text).grid(row=i, column=0)
-
-        self.vars = [tk.StringVar() for _ in labels]
+            ttk.Label(frm, text=text).grid(row=i, column=0, sticky="w", pady=2)
 
         for i, var in enumerate(self.vars):
-            if labels[i] == "Status":
-                self.status_combobox = ttk.Combobox(frame, textvariable=var, values=["Obejrzany", "Do obejrzenia"], state="readonly", width=47)
-                self.status_combobox.grid(row=i, column=1)
-            elif labels[i] == "Gatunek":
-                self.genre_combobox = ttk.Combobox(frame, textvariable=var, values=self.genre_options, width=47)
-                self.genre_combobox.grid(row=i, column=1)
+            if i == 4:
+                cb = ttk.Combobox(frm, textvariable=var, values=["Obejrzany", "Do obejrzenia"], state="readonly")
+                cb.grid(row=i, column=1, sticky="ew", pady=2)
+                if not var.get():
+                    var.set("Do obejrzenia")
+            elif i == 6:
+                ttk.Entry(frm, textvariable=var, width=50).grid(row=i, column=1, sticky="ew", pady=2)
             else:
-                tk.Entry(frame, textvariable=var, width=50).grid(row=i, column=1)
+                ttk.Entry(frm, textvariable=var).grid(row=i, column=1, sticky="ew", pady=2)
 
-        tk.Button(frame, text="Dodaj film", command=self.add_movie).grid(row=7, column=0, pady=5)
-        tk.Button(frame, text="Edytuj film", command=self.edit_movie).grid(row=7, column=1, pady=5)
-        tk.Button(frame, text="Usuń film", command=self.delete_movie).grid(row=8, column=0, columnspan=2, pady=5)
+        frm.columnconfigure(1, weight=1)
 
-        filter_frame = ttk.LabelFrame(self.root, text="Filtruj filmy", padding=(10, 5))
-        filter_frame.pack(padx=10, pady=10, fill="x")
+        btn_frame = ttk.Frame(frm)
+        btn_frame.grid(row=7, column=0, columnspan=2, pady=10)
+        ttk.Button(btn_frame, text="Dodaj", command=self.add_movie).pack(side="left", padx=5)
+        ttk.Button(btn_frame, text="Edytuj", command=self.edit_movie).pack(side="left", padx=5)
+        ttk.Button(btn_frame, text="Usuń", command=self.delete_movie).pack(side="left", padx=5)
+        ttk.Button(btn_frame, text="Wyczyść pola", command=self.clear_fields).pack(side="left", padx=5)
 
-        tk.Label(filter_frame, text="Tytuł:").grid(row=0, column=0, sticky="w", padx=5, pady=2)
-        self.search_var = tk.StringVar()
-        search_entry = tk.Entry(filter_frame, textvariable=self.search_var, width=20)
-        search_entry.grid(row=0, column=1, padx=5, pady=2)
-        search_entry.bind("<KeyRelease>", self.live_search)
+        filter_frame = ttk.LabelFrame(self.root, text="Filtry")
+        filter_frame.pack(fill="x", padx=10, pady=5)
 
-        tk.Label(filter_frame, text="Status:").grid(row=0, column=2, sticky="w", padx=5, pady=2)
-        self.filter_status = tk.StringVar()
-        self.filter_status_combobox = ttk.Combobox(filter_frame, textvariable=self.filter_status, values=["", "Obejrzany", "Do obejrzenia"], state="readonly", width=18)
-        self.filter_status_combobox.grid(row=0, column=3, padx=5, pady=2)
+        ttk.Label(filter_frame, text="Tytuł:").grid(row=0, column=0, sticky="w", pady=2)
+        ttk.Entry(filter_frame, textvariable=self.search_var).grid(row=0, column=1, sticky="ew", pady=2)
 
-        tk.Label(filter_frame, text="Gatunek:").grid(row=1, column=0, sticky="w", padx=5, pady=2)
-        self.filter_genre = tk.StringVar()
-        self.filter_genre_combobox = ttk.Combobox(filter_frame, textvariable=self.filter_genre, values=["", *self.genre_options], state="readonly", width=18)
-        self.filter_genre_combobox.grid(row=1, column=1, padx=5, pady=2)
+        ttk.Label(filter_frame, text="Status:").grid(row=0, column=2, sticky="w", pady=2)
+        self.status_cb = ttk.Combobox(filter_frame, textvariable=self.filter_status, state="readonly")
+        self.status_cb.grid(row=0, column=3, sticky="ew", pady=2)
 
-        tk.Label(filter_frame, text="Reżyser:").grid(row=1, column=2, sticky="w", padx=5, pady=2)
-        self.filter_director = tk.StringVar()
-        self.filter_director_combobox = ttk.Combobox(filter_frame, textvariable=self.filter_director, state="readonly", width=18)
-        self.filter_director_combobox.grid(row=1, column=3, padx=5, pady=2)
+        ttk.Label(filter_frame, text="Gatunek:").grid(row=1, column=0, sticky="w", pady=2)
+        self.genre_cb = ttk.Combobox(filter_frame, textvariable=self.filter_genre, state="readonly")
+        self.genre_cb.grid(row=1, column=1, sticky="ew", pady=2)
 
-        tk.Label(filter_frame, text="Rok:").grid(row=2, column=0, sticky="w", padx=5, pady=2)
-        self.filter_year = tk.StringVar()
-        self.filter_year_combobox = ttk.Combobox(filter_frame, textvariable=self.filter_year, state="readonly", width=8)
-        self.filter_year_combobox.grid(row=2, column=1, padx=5, pady=2)
+        ttk.Label(filter_frame, text="Reżyser:").grid(row=1, column=2, sticky="w", pady=2)
+        self.director_cb = ttk.Combobox(filter_frame, textvariable=self.filter_director, state="readonly")
+        self.director_cb.grid(row=1, column=3, sticky="ew", pady=2)
 
-        tk.Button(filter_frame, text="Filtruj", command=self.apply_filters).grid(row=2, column=3, padx=5, pady=5, sticky="e")
+        ttk.Label(filter_frame, text="Rok:").grid(row=2, column=0, sticky="w", pady=2)
+        self.year_cb = ttk.Combobox(filter_frame, textvariable=self.filter_year, state="readonly")
+        self.year_cb.grid(row=2, column=1, sticky="ew", pady=2)
+
+        ttk.Button(filter_frame, text="Filtruj", command=self.apply_filters).grid(row=2, column=2, sticky="ew", pady=2)
+        ttk.Button(filter_frame, text="Resetuj filtry", command=self.reset_filters).grid(row=2, column=3, sticky="ew", pady=2)
+
+        for i in range(4):
+            filter_frame.columnconfigure(i, weight=1)
 
         columns = ("Tytuł", "Rok", "Gatunek", "Status", "Ocena")
-        self.tree = ttk.Treeview(self.root, columns=columns, show="headings")
+        self.tree = ttk.Treeview(self.root, columns=columns, show="headings", selectmode="browse")
         for col in columns:
             self.tree.heading(col, text=col, command=lambda c=col: self.sort_by_column(c))
-            self.tree.column(col, width=100)
-        self.tree.pack(padx=10, pady=10)
-        self.tree.bind("<ButtonRelease-1>", self.on_tree_select)
+            self.tree.column(col, minwidth=50, width=100)
+        self.tree.pack(fill="both", expand=True, padx=10, pady=10)
+        self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
-        self.update_filter_options()
+        self.tree.pack(fill="both", expand=True, padx=10, pady=10)
+        self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
 
-    def update_filter_options(self):
-        directors = sorted(set(m.director for m in self.manager.movies))
-        years = sorted(set(str(m.year) for m in self.manager.movies))
-        self.filter_director_combobox['values'] = [""] + directors
-        self.filter_year_combobox['values'] = [""] + years
+        add_info_frame = ttk.LabelFrame(self.root, text="Dodatkowe informacje")
+        add_info_frame.pack(fill="x", padx=10, pady=5)
 
-    def get_movie_from_fields(self):
-        try:
-            genre = self.vars[3].get()
-            if genre not in self.genre_options:
-                self.genre_options.append(genre)
-                self.genre_combobox['values'] = self.genre_options
-                self.filter_genre_combobox['values'] = ["", *self.genre_options]
-            return Movie(
-                self.vars[0].get(), self.vars[1].get(), int(self.vars[2].get()),
-                genre, self.vars[4].get(), float(self.vars[5].get()), self.vars[6].get()
-            )
-        except ValueError as ve:
-            messagebox.showerror("Błąd danych", str(ve))
-            return None
+        wykresy = ttk.Button(add_info_frame, text="Generuj Wykresy", command=self.generate_charts,)
+        wykresy.grid(row=0, column=0, pady=2)
+
+        details = ttk.Button(add_info_frame, text="Więcej szczegółów", command=self.show_details,)
+        details.grid(row=0, column=3, pady=2,padx=20)
+
+        comment_btn = ttk.Button(add_info_frame, text="Dodaj komentarz", command=self.add_comment_popup_external)
+        comment_btn.grid(row=0, column=4, pady=2)
+
+        export_btn = ttk.Button(add_info_frame, text="Eksportuj dane", command=self.export_movies_to_txt)
+        export_btn.grid(row=0, column=5, pady=2)
+
+    def add_comment_popup_external(self):
+        if self.selected_index is None:
+            messagebox.showwarning("Brak filmu", "Wybierz film z listy.")
+            return
+        movie = self.manager.movies[self.selected_index]
+        self.add_comment_popup(movie)
 
     def add_movie(self):
         movie = self.get_movie_from_fields()
-        if movie:
-            if any(m.title.lower() == movie.title.lower() and m.director.lower() == movie.director.lower() for m in self.manager.movies):
-                messagebox.showerror("Błąd", "Film o tym tytule i reżyserze już istnieje.")
-                return
-            try:
-                self.manager.add_movie(movie)
-                self.clear_fields()
-                self.refresh_movie_list()
-                self.update_filter_options()
-                messagebox.showinfo("Sukces", "Film dodany.")
-            except Exception as e:
-                messagebox.showerror("Błąd", str(e))
+        if not movie:
+            return
+        try:
+            self.manager.add_movie(movie)
+            self.clear_fields()
+            self.reset_filters()
+            messagebox.showinfo("Sukces", "Film dodany.")
+        except ValueError as e:
+            messagebox.showerror("Błąd", str("Wystąpił problem podczas dodawania filmu: " + str(e)))
 
     def edit_movie(self):
         if self.selected_index is None:
-            messagebox.showwarning("Brak wyboru", "Wybierz film z listy.")
+            messagebox.showwarning("Brak wyboru", "Wybierz film do edycji.")
             return
         movie = self.get_movie_from_fields()
-        if movie:
-            if any(i != self.selected_index and m.title.lower() == movie.title.lower() and m.director.lower() == movie.director.lower()
-                   for i, m in enumerate(self.manager.movies)):
-                messagebox.showerror("Błąd", "Inny film o tym tytule i reżyserze już istnieje.")
-                return
-            try:
-                self.manager.update_movie(self.selected_index, movie)
-                self.clear_fields()
-                self.refresh_movie_list()
-                self.update_filter_options()
-                self.selected_index = None
-                messagebox.showinfo("Sukces", "Film zaktualizowany.")
-            except Exception as e:
-                messagebox.showerror("Błąd", str(e))
+        if not movie:
+            return
+        actual_index = self.manager.movies.index(self.filtered_movies[self.selected_index])
+        try:
+            movie.comments = self.manager.movies[actual_index].comments
+            self.manager.edit_movie(actual_index, movie)
+            self.clear_fields()
+            self.reset_filters()
+            messagebox.showinfo("Sukces", "Film edytowany.")
+        except (ValueError, IndexError) as e:
+            messagebox.showerror("Błąd", str("Wystąpił problem podczas edycji filmu: " + str(e)))
 
     def delete_movie(self):
         if self.selected_index is None:
             messagebox.showwarning("Brak wyboru", "Wybierz film do usunięcia.")
             return
-        self.manager.delete_movie(self.selected_index)
-        self.clear_fields()
-        self.refresh_movie_list()
-        self.update_filter_options()
+        actual_index = self.manager.movies.index(self.filtered_movies[self.selected_index])
+        try:
+            self.manager.delete_movie(actual_index)
+            self.clear_fields()
+            self.reset_filters()
+            messagebox.showinfo("Sukces", "Film usunięty.")
+        except IndexError as e:
+            messagebox.showerror("Błąd", str("Wystąpił problem podczas usuwania filmu: " + str(e)))
+
+    def get_movie_from_fields(self):
+        try:
+            year = int(self.year_var.get())
+        except ValueError:
+            messagebox.showerror("Błąd", "Rok musi być liczbą całkowitą.")
+            return None
+
+        try:
+            rating = float(self.rating_var.get())
+            if not (0 <= rating <= 10):
+                raise ValueError("Ocena musi być od 0 do 10.")
+        except ValueError:
+            messagebox.showerror("Błąd", f"Ocena musi być liczbą z przedziału od 0 do 10")
+            return None
+
+        title = self.title_var.get().strip()
+        director = self.director_var.get().strip()
+        genre = self.genre_var.get().strip()
+        status = self.status_var.get().strip()
+        description = self.desc_var.get().strip()
+        if not title or not director or not genre or not status:
+            messagebox.showerror("Błąd", "Wypełnij wszystkie pola oprócz opisu.")
+            return None
+        return Movie(title, director, year, genre, status, rating, description)
+
+    def clear_fields(self):
+        for var in self.vars:
+            var.set("")
+        if self.tree.selection():
+            self.tree.selection_remove(self.tree.selection())
         self.selected_index = None
-        messagebox.showinfo("Sukces", "Film usunięty.")
 
-    def on_tree_select(self, event):
-        item = self.tree.selection()
-        if item:
-            index = self.tree.index(item[0])
-            movie = self.manager.movies[index]
-            for var, val in zip(self.vars, [
-                movie.title, movie.director, movie.year, movie.genre,
-                movie.status, movie.rating, movie.description
-            ]):
-                var.set(val)
-            self.selected_index = index
+    def refresh_movie_list(self):
+        selected_movie = None
+        if self.selected_index is not None and 0 <= self.selected_index < len(self.filtered_movies):
+            selected_movie = self.filtered_movies[self.selected_index]
 
-    def live_search(self, event):
-        self.apply_filters()
+        self.tree.delete(*self.tree.get_children())
+        for movie in self.filtered_movies:
+            self.tree.insert("", "end", values=(
+                movie.title, movie.year, movie.genre, movie.status, movie.rating))
+
+        if selected_movie:
+            for iid in self.tree.get_children():
+                item = self.tree.item(iid)
+                vals = item['values']
+                if vals[0] == selected_movie.title and vals[1] == selected_movie.year:
+                    self.tree.selection_set(iid)
+                    break
 
     def apply_filters(self):
-        query = self.search_var.get().lower()
-        status = self.filter_status.get().lower()
-        genre = self.filter_genre.get().lower()
-        director = self.filter_director.get().lower()
-        year = self.filter_year.get()
-        results = [m for m in self.manager.movies if query in m.title.lower()]
-        if status:
-            results = [m for m in results if m.status.lower() == status]
-        if genre:
-            results = [m for m in results if m.genre.lower() == genre]
-        if director:
-            results = [m for m in results if director in m.director.lower()]
-        if year.isdigit():
-            results = [m for m in results if m.year == int(year)]
-        self.display_movies(results)
+        title_filter = self.search_var.get().lower()
+        status_filter = self.filter_status.get()
+        genre_filter = self.filter_genre.get()
+        director_filter = self.filter_director.get()
+        year_filter = self.filter_year.get()
+
+        self.filtered_movies = []
+        for m in self.manager.movies:
+            if title_filter and title_filter not in m.title.lower():
+                continue
+            if status_filter and m.status != status_filter:
+                continue
+            if genre_filter and m.genre != genre_filter:
+                continue
+            if director_filter and m.director != director_filter:
+                continue
+            if year_filter and str(m.year) != year_filter:
+                continue
+            self.filtered_movies.append(m)
+
+        self.sort_column = None
+        self.sort_reverse = False
+        self.refresh_movie_list()
+        self.update_filter_options()
+
+    def reset_filters(self):
+        self.search_var.set("")
+        self.filter_status.set("")
+        self.filter_genre.set("")
+        self.filter_director.set("")
+        self.filter_year.set("")
+        self.filtered_movies = self.manager.movies[:]
+        self.refresh_movie_list()
+        self.update_filter_options()
+
+    def update_filter_options(self):
+        statuses = sorted(set(m.status for m in self.manager.movies))
+        genres = sorted(set(m.genre for m in self.manager.movies))
+        directors = sorted(set(m.director for m in self.manager.movies))
+        years = sorted(set(str(m.year) for m in self.manager.movies))
+
+        self.status_cb['values'] = [""] + statuses
+        self.genre_cb['values'] = [""] + genres
+        self.director_cb['values'] = [""] + directors
+        self.year_cb['values'] = [""] + years
+
+    def on_tree_select(self, event):
+        selected = self.tree.selection()
+        if not selected:
+            self.selected_index = None
+            self.clear_fields()
+            return
+        item = self.tree.item(selected[0])
+        values = item['values']
+        for idx, movie in enumerate(self.filtered_movies):
+            if movie.title == values[0] and str(movie.year) == str(values[1]):
+                self.selected_index = idx
+                self.load_movie_into_fields(movie)
+                break
+
+    def load_movie_into_fields(self, movie):
+        self.title_var.set(movie.title)
+        self.director_var.set(movie.director)
+        self.year_var.set(str(movie.year))
+        self.genre_var.set(movie.genre)
+        self.status_var.set(movie.status)
+        self.rating_var.set(str(movie.rating))
+        self.desc_var.set(movie.description)
 
     def sort_by_column(self, col):
         col_map = {
@@ -186,24 +287,149 @@ class MovieApp:
             "Rok": lambda m: m.year,
             "Gatunek": lambda m: m.genre.lower(),
             "Status": lambda m: m.status.lower(),
-            "Ocena": lambda m: m.rating
+            "Ocena": lambda m: m.rating,
         }
         if col == self.sort_column:
             self.sort_reverse = not self.sort_reverse
         else:
-            self.sort_reverse = False
             self.sort_column = col
-        sorted_movies = sorted(self.manager.movies, key=col_map[col], reverse=self.sort_reverse)
-        self.display_movies(sorted_movies)
+            self.sort_reverse = False
+        key_func = col_map.get(col)
+        if key_func:
+            self.filtered_movies.sort(key=key_func, reverse=self.sort_reverse)
+            self.refresh_movie_list()
 
-    def display_movies(self, movie_list):
-        self.tree.delete(*self.tree.get_children())
-        for m in movie_list:
-            self.tree.insert("", tk.END, values=(m.title, m.year, m.genre, m.status, m.rating))
+    def generate_charts(self):
+        if not self.manager.movies:
+            messagebox.showinfo("Brak danych", "Brak filmów do analizy.")
+            return
 
-    def refresh_movie_list(self):
-        self.display_movies(self.manager.movies)
+        genres = [m.genre for m in self.manager.movies]
+        genre_counts = Counter(genres)
 
-    def clear_fields(self):
-        for var in self.vars:
-            var.set("")
+        genre_ratings = defaultdict(list)
+        for m in self.manager.movies:
+            genre_ratings[m.genre].append(m.rating)
+        avg_ratings = {genre: sum(ratings) / len(ratings) for genre, ratings in genre_ratings.items()}
+
+        status_counts = Counter(m.status for m in self.manager.movies)
+
+        plt.figure(figsize=(14, 4))
+
+        plt.subplot(1, 3, 1)
+        plt.bar(genre_counts.keys(), genre_counts.values(), color="skyblue")
+        plt.title("Liczba filmów wg gatunku")
+        plt.xticks(rotation=45, ha="right")
+
+        plt.subplot(1, 3, 2)
+        plt.bar(avg_ratings.keys(), avg_ratings.values(), color="lightgreen")
+        plt.title("Średnia ocena wg gatunku")
+        plt.xticks(rotation=45, ha="right")
+        plt.ylim(0, 10)
+
+        plt.subplot(1, 3, 3)
+        plt.pie(
+            status_counts.values(),
+            labels=status_counts.keys(),
+            autopct='%1.1f%%',
+            startangle=90,
+            colors=plt.cm.Paired.colors
+        )
+        plt.title("Status filmów")
+
+        plt.tight_layout()
+        plt.show()
+
+    def add_comment_to_movie(self, comment):
+        if not comment.strip():
+            messagebox.showwarning("Pusty komentarz", "Komentarz nie może być pusty.")
+            return
+
+        if self.selected_index is None:
+            messagebox.showwarning("Brak filmu", "Wybierz film.")
+            return
+
+        movie = self.manager.movies[self.selected_index]
+        movie.comments.append(comment.strip())
+        self.manager.save()
+        messagebox.showinfo("Sukces", "Komentarz dodany.")
+
+    def add_comment_popup(self, movie):
+        comment_window = tk.Toplevel(self.root)
+        comment_window.title("Dodaj komentarz")
+
+        tk.Label(comment_window, text="Treść komentarza:").pack(pady=(10, 0))
+        comment_entry = tk.Entry(comment_window, width=50)
+        comment_entry.pack(pady=(0, 10))
+
+        def save_and_close():
+            self.add_comment_to_movie(comment_entry.get())
+            comment_window.destroy()
+
+        tk.Button(comment_window, text="Dodaj", command=save_and_close).pack()
+
+    def show_details(self):
+        selected_items = self.tree.selection()
+        if not selected_items:
+            return
+        item_id = selected_items[0]
+        index = self.tree.index(item_id)
+        movie = self.filtered_movies[index]
+        self.selected_index = index
+
+        details_text = (
+            f"Tytuł: {movie.title}\n"
+            f"Reżyser: {movie.director}\n"
+            f"Rok: {movie.year}\n"
+            f"Gatunek: {movie.genre}\n"
+            f"Status: {movie.status}\n"
+            f"Ocena: {movie.rating}\n"
+            f"Opis: {movie.description}\n"
+        )
+
+        if movie.comments:
+            details_text += "\nKomentarze:\n"
+            for c in movie.comments:
+                details_text += f"- {c}\n"
+
+        details_window = tk.Toplevel(self.root)
+        details_window.title("Szczegóły filmu")
+
+        frame = ttk.Frame(details_window)
+        frame.pack(padx=10, pady=10, fill="both", expand=True)
+
+        comment_button = tk.Button(frame, text="Dodaj komentarz", command=lambda: self.add_comment_popup(movie))
+        comment_button.pack(pady=(0, 10))
+
+        text_widget = tk.Text(frame, wrap="word", width=50, height=15)
+        text_widget.pack(side="left", fill="both", expand=True)
+        text_widget.insert("1.0", details_text)
+        text_widget.config(state="disabled")
+
+        scrollbar = ttk.Scrollbar(frame, orient="vertical", command=text_widget.yview)
+        scrollbar.pack(side="right", fill="y")
+        text_widget.config(yscrollcommand=scrollbar.set)
+
+        close_button = tk.Button(details_window, text="Zamknij", command=details_window.destroy)
+        close_button.pack(pady=(0, 10))
+
+    def export_movies_to_txt(self):
+        try:
+            with open("eksport_filmow.txt", "w", encoding="utf-8") as f:
+                for movie in self.manager.movies:
+                    f.write(f"Tytuł: {movie.title}\n")
+                    f.write(f"Reżyser: {movie.director}\n")
+                    f.write(f"Rok: {movie.year}\n")
+                    f.write(f"Gatunek: {movie.genre}\n")
+                    f.write(f"Status: {movie.status}\n")
+                    f.write(f"Ocena: {movie.rating}\n")
+                    f.write(f"Opis: {movie.description}\n")
+                    if movie.comments:
+                        f.write("Komentarze:\n")
+                        for c in movie.comments:
+                            f.write(f" - {c}\n")
+                    f.write("\n" + "-" * 60 + "\n\n")
+            messagebox.showinfo("Sukces", "Filmy wyeksportowano do pliku 'eksport_filmow.txt'.")
+        except Exception as e:
+            messagebox.showerror("Błąd", f"Wystąpił problem podczas eksportu: {e}")
+

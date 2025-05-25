@@ -1,55 +1,42 @@
-# Zmodyfikowany movie_manager.py z dodatkowymi sprawdzeniami
 import json
-import os
+from datetime import datetime
 from movie import Movie
 
-DATA_FILE = "movies.json"
-
 class MovieManager:
-    def __init__(self):
+    def __init__(self, filename="movies.json"):
+        self.filename = filename
         self.movies = []
-        self.load_movies()
+        self.load()
+
+    def load(self):
+        try:
+            with open(self.filename, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                self.movies = [Movie(**movie) for movie in data]
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.movies = []
+
+    def save(self):
+        with open(self.filename, "w", encoding="utf-8") as f:
+            data = [movie.to_dict() for movie in self.movies]
+            json.dump(data, f, ensure_ascii=False, indent=4)
 
     def add_movie(self, movie):
-        if not movie.title:
-            raise ValueError("Tytuł filmu nie może być pusty.")
-        if not (0.0 <= movie.rating <= 10.0):
-            raise ValueError("Ocena musi być z zakresu 0.0 - 10.0")
-        if self._movie_exists(movie):
-            raise ValueError("Film o takim tytule, reżyserze i roku już istnieje.")
         self.movies.append(movie)
-        self.save_movies()
+        self.save()
 
-    def update_movie(self, index, new_movie):
-        if not (0.0 <= new_movie.rating <= 10.0):
-            raise ValueError("Ocena musi być z zakresu 0.0 - 10.0")
-        # Sprawdzenie duplikatu z pominięciem tego indeksu
-        for i, m in enumerate(self.movies):
-            if i != index and m.title == new_movie.title and m.director == new_movie.director and m.year == new_movie.year:
-                raise ValueError("Inny film o takim tytule, reżyserze i roku już istnieje.")
-        self.movies[index] = new_movie
-        self.save_movies()
+    def edit_movie(self, index, movie):
+        old_status = self.movies[index].status
+        new_status = movie.status
+
+        if old_status != "Obejrzany" and new_status == "Obejrzany":
+            movie.watch_date = datetime.now().strftime("%Y-%m-%d")
+        elif new_status != "Obejrzany":
+            movie.watch_date = None
+
+        self.movies[index] = movie
+        self.save()
 
     def delete_movie(self, index):
         del self.movies[index]
-        self.save_movies()
-
-    def search_movies(self, query):
-        query_lower = query.lower()
-        return [m for m in self.movies if query_lower in m.title.lower()]
-
-    def load_movies(self):
-        if os.path.exists(DATA_FILE):
-            with open(DATA_FILE, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                self.movies = [Movie(**d) for d in data]
-
-    def save_movies(self):
-        with open(DATA_FILE, "w", encoding="utf-8") as f:
-            json.dump([m.to_dict() for m in self.movies], f, ensure_ascii=False, indent=2)
-
-    def _movie_exists(self, movie):
-        for m in self.movies:
-            if m.title == movie.title and m.director == movie.director and m.year == movie.year:
-                return True
-        return False
+        self.save()
