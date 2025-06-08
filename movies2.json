@@ -1,0 +1,29 @@
+[
+    {
+        "title": "Incepcja",
+        "director": "Christopher Nolan",
+        "year": 2010,
+        "genre": "Sci-Fi",
+        "status": "Do obejrzenia",
+        "rating": 9.0,
+        "description": "Człowiek włamuje się do snów innych ludzi, by wykraść ich sekrety."
+    },
+    {
+        "title": "Interstellar",
+        "director": "Christopher Nolan",
+        "year": 2015,
+        "genre": "Sci-Fi",
+        "status": "Do obejrzenia",
+        "rating": 9.2,
+        "description": "Zespół astronautów podróżuje przez tunel czasoprzestrzenny w poszukiwaniu nowego domu dla ludzkości."
+    },
+    {
+        "title": "Ojciec chrzestny",
+        "director": "Francis Ford Coppola",
+        "year": 1972,
+        "genre": "Dramat",
+        "status": "Do obejrzenia",
+        "rating": 9.2,
+        "description": "Historia potężnej rodziny mafijnej w Ameryce i ich walka o władzę."
+    }
+]

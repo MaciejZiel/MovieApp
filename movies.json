@@ -7,17 +7,19 @@
         "status": "Obejrzany",
         "rating": 9.0,
         "description": "Człowiek włamuje się do snów innych ludzi, by wykraść ich sekrety.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Interstellar",
         "director": "Christopher Nolan",
-        "year": 2011,
+        "year": 2015,
         "genre": "Sci-Fi",
         "status": "Obejrzany",
-        "rating": 1.0,
-        "description": "",
-        "comments": []
+        "rating": 9.2,
+        "description": "Zespół astronautów podróżuje przez tunel czasoprzestrzenny w poszukiwaniu nowego domu dla ludzkości.",
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Ojciec chrzestny",
@@ -27,7 +29,8 @@
         "status": "Obejrzany",
         "rating": 9.2,
         "description": "Historia potężnej rodziny mafijnej w Ameryce i ich walka o władzę.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Skazani na Shawshank",
@@ -37,7 +40,8 @@
         "status": "Obejrzany",
         "rating": 9.3,
         "description": "Więzień skazany za morderstwo żony nawiązuje przyjaźń z innym osadzonym.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Mroczny Rycerz",
@@ -47,9 +51,8 @@
         "status": "Obejrzany",
         "rating": 9.0,
         "description": "Batman staje do walki z Jokerem, który terroryzuje Gotham City.",
-        "comments": [
-            "saeoujhfgiuowsehfgiuwshbieughsighniuwsngf"
-        ]
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Pulp Fiction",
@@ -59,10 +62,8 @@
         "status": "Obejrzany",
         "rating": 8.9,
         "description": "Powiązane ze sobą historie gangsterów, bokserów i innych postaci z Los Angeles.",
-        "comments": [
-            "LALALALALLALALALALALALALAL FAJNY FILM !QI@HJERO!HQRUHUIRFQAH",
-            "OAIEWHFJoiusHEROIGUHwoieghoiwhjSGOHworughn"
-        ]
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Lista Schindlera",
@@ -72,7 +73,8 @@
         "status": "Obejrzany",
         "rating": 8.9,
         "description": "Niemiecki przemysłowiec ratuje ponad tysiąc Żydów podczas Holocaustu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Forrest Gump",
@@ -82,9 +84,8 @@
         "status": "Obejrzany",
         "rating": 8.8,
         "description": "Historia prostodusznego mężczyzny, który mimowolnie uczestniczy w ważnych wydarzeniach historycznych.",
-        "comments": [
-            "IOAHfoiaheofihwoifhoiwehoif"
-        ]
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Fight Club",
@@ -94,7 +95,8 @@
         "status": "Obejrzany",
         "rating": 8.8,
         "description": "Bezsenni mężczyzna tworzy podziemny klub walki jako formę terapii grupowej.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Matrix",
@@ -104,7 +106,8 @@
         "status": "Obejrzany",
         "rating": 8.7,
         "description": "Haker odkrywa, że rzeczywistość jest symulacją komputerową.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Władca Pierścieni: Powrót Króla",
@@ -114,7 +117,8 @@
         "status": "Obejrzany",
         "rating": 8.9,
         "description": "Finałowa część trylogii o walce dobra ze złem w Śródziemiu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Dobry, zły i brzydki",
@@ -124,7 +128,8 @@
         "status": "Obejrzany",
         "rating": 8.8,
         "description": "Trzech rewolwerowców szuka skarbu podczas wojny secesyjnej.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Dwunastu gniewnych ludzi",
@@ -134,7 +139,8 @@
         "status": "Obejrzany",
         "rating": 8.9,
         "description": "Ława przysięgłych rozważa werdykt w sprawie o morderstwo.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Władca Pierścieni: Drużyna Pierścienia",
@@ -144,7 +150,8 @@
         "status": "Obejrzany",
         "rating": 8.8,
         "description": "Hobbit wyrusza w niebezpieczną podróż, by zniszczyć magiczny pierścień.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Gladiator",
@@ -154,7 +161,8 @@
         "status": "Obejrzany",
         "rating": 8.5,
         "description": "Rzymski generał zostaje gladiatorem i szuka zemsty na cesarzu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Siedem",
@@ -164,7 +172,8 @@
         "status": "Obejrzany",
         "rating": 8.6,
         "description": "Dwóch detektywów śledzi seryjnego mordercę inspirowanego siedmioma grzechami głównymi.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Milczenie owiec",
@@ -174,7 +183,8 @@
         "status": "Obejrzany",
         "rating": 8.6,
         "description": "Agentka FBI szuka pomocy u kanibalskiego psychiatry, by złapać innego seryjnego mordercę.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Bardzo się staram",
@@ -184,7 +194,8 @@
         "status": "Do obejrzenia",
         "rating": 8.3,
         "description": "Alternatywna historia II wojny światowej z żołnierzami polującymi na nazistów.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Casablanca",
@@ -194,7 +205,8 @@
         "status": "Obejrzany",
         "rating": 8.5,
         "description": "Amerykański właściciel klubu nocnego pomaga byłej ukochanej i jej mężowi uciec z Maroka.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Więzień Alcatraz",
@@ -204,7 +216,8 @@
         "status": "Obejrzany",
         "rating": 7.8,
         "description": "Historia prawdziwego więźnia, który spędził lata w samotnej celi na Alcatraz.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Obywatel Kane",
@@ -214,7 +227,8 @@
         "status": "Do obejrzenia",
         "rating": 8.3,
         "description": "Biografia fikcyjnego potentata medialnego i jego upadek.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Vertigo",
@@ -224,7 +238,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "Detektyw z lękiem wysokości zostaje obsesyjnie zakochany w kobiecie, którą śledzi.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Psychoza",
@@ -234,7 +249,8 @@
         "status": "Obejrzany",
         "rating": 8.5,
         "description": "Młoda kobieta zostaje zamordowana w motelu prowadzonym przez dziwnego mężczyznę.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Taksówkarz",
@@ -244,7 +260,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "Samotny taksówkarz w Nowym Jorku stopniowo wpada w obłęd.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Lot nad kukułczym gniazdem",
@@ -254,7 +271,8 @@
         "status": "Obejrzany",
         "rating": 8.7,
         "description": "Pacjent szpitala psychiatrycznego buntuje się przeciwko opresyjnej pielęgniarce.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Chinatown",
@@ -264,7 +282,8 @@
         "status": "Do obejrzenia",
         "rating": 8.2,
         "description": "Prywatny detektyw w Los Angeles wpada w sieć korupcji i spisków.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Szósty zmysł",
@@ -274,7 +293,8 @@
         "status": "Obejrzany",
         "rating": 8.1,
         "description": "Psycholog dziecięcy pomaga chłopcu, który twierdzi, że widzi zmarłych.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Nietykalni",
@@ -284,7 +304,8 @@
         "status": "Obejrzany",
         "rating": 7.9,
         "description": "Agent federalny próbuje postawić przed sądem Al Capone podczas prohibicji.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Terminator 2: Dzień sądu",
@@ -294,7 +315,8 @@
         "status": "Obejrzany",
         "rating": 8.5,
         "description": "Cyborg z przyszłości chroni chłopca przed bardziej zaawansowanym robotem zabójcą.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Obcy - 8. pasażer Nostromo",
@@ -304,7 +326,8 @@
         "status": "Obejrzany",
         "rating": 8.4,
         "description": "Załoga statku kosmicznego musi walczyć z niebezpieczną obcą formą życia.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Blade Runner",
@@ -314,7 +337,8 @@
         "status": "Obejrzany",
         "rating": 8.1,
         "description": "W dystopijnej przyszłości łowca androidów poluje na zbiegłe replikantów.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Apokalipsa dzisiaj",
@@ -324,7 +348,8 @@
         "status": "Do obejrzenia",
         "rating": 8.4,
         "description": "Kapitan armii amerykańskiej otrzymuje misję zabicia zbuntowanego pułkownika w Wietnamie.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "2001: Odyseja kosmiczna",
@@ -334,7 +359,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "Podróż przez przestrzeń i czas odkrywająca tajemnice ewolucji ludzkości.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Lśnienie",
@@ -344,7 +370,8 @@
         "status": "Obejrzany",
         "rating": 8.4,
         "description": "Pisarz i jego rodzina spędzają zimę w opustoszałym hotelu, gdzie dziją się dziwne rzeczy.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Mechaniczna pomarańcza",
@@ -354,7 +381,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "W dystopijnej przyszłości młody przestępca przechodzi eksperymentalną terapię.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Raging Bull",
@@ -364,7 +392,8 @@
         "status": "Do obejrzenia",
         "rating": 8.2,
         "description": "Biografia boksera Jake'a LaMotta i jego życia pełnego przemocy.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Goodfellas",
@@ -374,7 +403,8 @@
         "status": "Obejrzany",
         "rating": 8.7,
         "description": "Historia człowieka, który dorastał w mafii i jego ewentualny upadek.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Casino",
@@ -384,7 +414,8 @@
         "status": "Obejrzany",
         "rating": 8.2,
         "description": "Mafia kontroluje kasyna w Las Vegas w latach 70. i 80.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Żółtodziób",
@@ -394,7 +425,8 @@
         "status": "Obejrzany",
         "rating": 8.5,
         "description": "Policjant pod przykrywką infiltruje mafię, podczas gdy mafioso infiltruje policję.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Reservoir Dogs",
@@ -404,7 +436,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "Grupa przestępców próbuje dowiedzieć się, kto z nich jest konfidentem policji.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Kill Bill: Część 1",
@@ -414,7 +447,8 @@
         "status": "Obejrzany",
         "rating": 8.1,
         "description": "Była zabójczyni szuka zemsty na swojej drużynie, która próbowała ją zabić.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Django",
@@ -424,7 +458,8 @@
         "status": "Obejrzany",
         "rating": 8.4,
         "description": "Uwolniony niewolnik staje się łowcą nagród i ratuje swoją żonę.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Dawno temu w Hollywood",
@@ -434,7 +469,8 @@
         "status": "Do obejrzenia",
         "rating": 7.6,
         "description": "Aktor telewizyjny i jego kaskader próbują przetrwać w zmieniającym się Hollywood 1969 roku.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "E.T.",
@@ -444,7 +480,8 @@
         "status": "Obejrzany",
         "rating": 7.8,
         "description": "Chłopiec zaprzyjaźnia się z delikatnym kosmitą, który chce wrócić do domu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Szczęki",
@@ -454,7 +491,8 @@
         "status": "Obejrzany",
         "rating": 8.0,
         "description": "Gigantyczny rekin terroryzuje nadmorski kurort.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Indiana Jones i Poszukiwacze zaginionej Arki",
@@ -464,7 +502,8 @@
         "status": "Obejrzany",
         "rating": 8.4,
         "description": "Archeolog szuka mitycznej Arki Przymierza przed nazistami.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Park Jurajski",
@@ -474,7 +513,8 @@
         "status": "Obejrzany",
         "rating": 8.1,
         "description": "Naukowcy odtwarzają dinozaury z DNA i tworzą park rozrywki.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Szeregowiec Ryan",
@@ -484,7 +524,8 @@
         "status": "Obejrzany",
         "rating": 8.6,
         "description": "Grupa żołnierzy zostaje wysłana na uratowanie pojedynczego żołnierza podczas D-Day.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Gwiezdne wojny: Nowa nadzieja",
@@ -494,7 +535,8 @@
         "status": "Obejrzany",
         "rating": 8.6,
         "description": "Młody chłopiec dołącza do rebelii przeciwko złowrogemu Imperium Galaktycznemu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Imperium kontratakuje",
@@ -504,7 +546,8 @@
         "status": "Obejrzany",
         "rating": 8.7,
         "description": "Rebelianci uciekają przed siłami Imperium, podczas gdy Luke szuka treningu Jedi.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Powrót Jedi",
@@ -514,7 +557,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "Luke Skywalker prowadzi misję ratowania Hana Solo i pokonania Imperium.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Titanic",
@@ -524,7 +568,8 @@
         "status": "Obejrzany",
         "rating": 7.8,
         "description": "Epicka historia miłosna na pokładzie słynnego statku, który zatonął w 1912 roku.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Avatar",
@@ -534,7 +579,8 @@
         "status": "Obejrzany",
         "rating": 7.8,
         "description": "Człowiek w avatarze na obcej planecie zakochuje się w lokalnej kobiecie.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Obcy - Decydujące starcie",
@@ -544,7 +590,8 @@
         "status": "Obejrzany",
         "rating": 8.3,
         "description": "Ripley wraca na planetę obcych z oddziałem marines.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Ojciec chrzestny II",
@@ -554,7 +601,8 @@
         "status": "Obejrzany",
         "rating": 9.0,
         "description": "Kontynuacja sagi rodziny Corleone, pokazująca przeszłość i teraźniejszość.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Ojciec chrzestny III",
@@ -564,7 +612,8 @@
         "status": "Do obejrzenia",
         "rating": 7.6,
         "description": "Michael Corleone próbuje uciec od przeszłości przestępczej.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Kasyno Royale",
@@ -574,7 +623,8 @@
         "status": "Obejrzany",
         "rating": 8.0,
         "description": "James Bond w swojej pierwszej misji jako agent 007.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Skyfall",
@@ -584,7 +634,8 @@
         "status": "Obejrzany",
         "rating": 7.7,
         "description": "Bond musi chronić M przed zemstą byłego agenta.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Mad Max: Na drodze gniewu",
@@ -594,7 +645,8 @@
         "status": "Obejrzany",
         "rating": 8.1,
         "description": "W postapokaliptycznej pustyni wojownik pomaga grupie kobiet uciec od tyrana.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Blade Runner 2049",
@@ -604,7 +656,8 @@
         "status": "Obejrzany",
         "rating": 8.0,
         "description": "Nowy blade runner odkrywa sekret, który może zagrozić społeczeństwu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Diuna",
@@ -614,7 +667,8 @@
         "status": "Do obejrzenia",
         "rating": 8.0,
         "description": "Młody szlachcic musi chronić najbardziej wartościowy zasób we wszechświecie.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Parasite",
@@ -624,7 +678,8 @@
         "status": "Obejrzany",
         "rating": 8.6,
         "description": "Biedna rodzina infiltruje dom bogatej rodziny w Korei Południowej.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Joker",
@@ -634,7 +689,8 @@
         "status": "Obejrzany",
         "rating": 8.4,
         "description": "Historia pochodzenia słynnego złoczyńcy Batmana.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "1917",
@@ -644,7 +700,8 @@
         "status": "Do obejrzenia",
         "rating": 8.3,
         "description": "Dwóch brytyjskich żołnierzy otrzymuje misję dostarczenia krytycznej wiadomości.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Dunkerque",
@@ -654,7 +711,8 @@
         "status": "Obejrzany",
         "rating": 7.8,
         "description": "Ewakuacja sojuszniczych żołnierzy z plaży w Dunkierce podczas II wojny światowej.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Tenet",
@@ -664,7 +722,8 @@
         "status": "Do obejrzenia",
         "rating": 7.3,
         "description": "Agent próbuje zapobiec III wojnie światowej używając odwrócenia czasu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Oppenheimer",
@@ -674,7 +733,8 @@
         "status": "Do obejrzenia",
         "rating": 8.4,
         "description": "Biografia J. Roberta Oppenheimera, ojca bomby atomowej.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "La La Land",
@@ -684,7 +744,8 @@
         "status": "Obejrzany",
         "rating": 8.0,
         "description": "Jazzowy pianista i początkująca aktorka zakochują się w Los Angeles.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Whiplash",
@@ -694,7 +755,8 @@
         "status": "Obejrzany",
         "rating": 8.5,
         "description": "Młody perkusista próbuje zaimponować bezlitosnego instruktora jazzu.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Her",
@@ -704,7 +766,8 @@
         "status": "Obejrzany",
         "rating": 8.0,
         "description": "Samotny pisarz zakochuje się w sztucznej inteligencji.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Ex Machina",
@@ -714,7 +777,8 @@
         "status": "Obejrzany",
         "rating": 7.7,
         "description": "Programista testuje sztuczną inteligencję w formie pięknej kobiety-robota.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Wielki Gatsby",
@@ -724,7 +788,8 @@
         "status": "Do obejrzenia",
         "rating": 7.2,
         "description": "Adaptacja klasycznej powieści o bogactwie i dekadencji w latach 20.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Wilk z Wall Street",
@@ -734,7 +799,8 @@
         "status": "Obejrzany",
         "rating": 8.2,
         "description": "Historia wzlotu i upadku brokera z Wall Street zamieszanego w korupcję.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Irlandczyk",
@@ -744,7 +810,8 @@
         "status": "Do obejrzenia",
         "rating": 7.8,
         "description": "Starzejący się zabójca na zlecenie wspomina swoje związki z mafią.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Pojedynek",
@@ -754,7 +821,8 @@
         "status": "Do obejrzenia",
         "rating": 7.4,
         "description": "Średniowieczny pojedynek wynikający z oskarżenia o gwałt.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "House of Gucci",
@@ -764,7 +832,8 @@
         "status": "Do obejrzenia",
         "rating": 6.6,
         "description": "Historia morderstwa w rodzinie założycieli domu mody Gucci.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Bohemian Rhapsody",
@@ -774,7 +843,8 @@
         "status": "Obejrzany",
         "rating": 7.9,
         "description": "Biografia Freddie Mercury'ego i zespołu Queen.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     },
     {
         "title": "Rocketman",
@@ -784,6 +854,7 @@
         "status": "Obejrzany",
         "rating": 7.3,
         "description": "Fantazja biograficzna o życiu Eltona Johna.",
-        "comments": []
+        "comments": [],
+        "watch_date": null
     }
 ]
